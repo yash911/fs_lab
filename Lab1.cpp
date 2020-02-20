@@ -1,3 +1,4 @@
+//NOT AN ELEGANT SOLUTION. HARDCODED THE INPUT FILE. USE WITH CAUTION
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -6,19 +7,26 @@
 using namespace std;
 
 int main() {
-	cout << "1.STDOUT\n2.FILE\n";
+	
+	int n;
+	vector <string> v;
+	ofstream fout;
+	while(true){
+	cout << "1.STDOUT\n2.FILE\n3.exit\n";
 	int ch;
 	cin >> ch;
 	switch(ch){
 		case 1: {
 			cout << "Enter number of names: ";
-			int n;
+			fout.open("input.txt");
 			cin >> n;
 			string s[n];
 			int j = 0;
-			vector <string> v;
+			
+			
 			while(j < n){
 				cin >> s[j];
+				fout << s[j] << "\n";
 				reverse(s[j].begin(), s[j].end());
 				v.push_back(s[j]);
 				j++;
@@ -28,6 +36,7 @@ int main() {
 			for(int i = 0; i < n; i++){
 				cout << v[i] << "\n";
 			}
+			fout.close();
 			break; 
 			
 		}
@@ -41,8 +50,8 @@ int main() {
 			
 			string inp_string;
 			
-			while(!infile.fail()){
-				infile >> inp_string;
+			while(infile){
+				getline(infile, inp_string);
 				reverse(inp_string.begin(), inp_string.end());
 				outfile << inp_string << "\n";
 			}
@@ -53,6 +62,8 @@ int main() {
 			break;
 		}
 
+	}
+	if(ch == 3) break;
 	}
 	return 0;
 }
